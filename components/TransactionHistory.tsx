@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from "react";
 
 interface Transaction {
@@ -10,22 +12,40 @@ interface Transaction {
 }
 
 interface TransactionHistoryProps {
-  userId: string; // TODO: assuming you identify users by some ID
+  userEmail: string; // TODO: assuming you identify 
 }
 
-const TransactionHistory: React.FC<TransactionHistoryProps> = ({ userId }) => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-
+const TransactionHistory: React.FC<TransactionHistoryProps> = ({ userEmail }) => {
+  const [transactions, setTransactions] = useState<Transaction[]>([
+    // Add mock transaction data here
+    {
+      id: "1",
+      symbol: "AAPL",
+      quantity: 10,
+      transactionType: "buy",
+      price: 150.0,
+      date: "2021-01-01T12:00:00.000Z",
+    },
+    {
+      id: "2",
+      symbol: "MSFT",
+      quantity: 5,
+      transactionType: "sell",
+      price: 250.0,
+      date: "2021-02-01T12:00:00.000Z",
+    },
+  ]);
+  
   useEffect(() => {
     // TODO: Fetch the transaction history from the backend
     const fetchTransactions = async () => {
-      const response = await fetch(`/api/transactions/${userId}`);
+      const response = await fetch(`/api/transactions/${userEmail}`);
       const data = await response.json();
       setTransactions(data);
     };
 
     fetchTransactions();
-  }, [userId]);
+  }, [userEmail]);
 
   return (
     <div className="overflow-x-auto relative">

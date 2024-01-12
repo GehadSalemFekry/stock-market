@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
+import GoogleButton from "@/components/GoogleButton";
 
 type FormValues = {
   name: string;
@@ -23,7 +24,6 @@ const RegisterForm = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const { name, email, password } = data;
-    console.log(data);
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
@@ -38,7 +38,6 @@ const RegisterForm = () => {
       });
       res.status === 201 && router.push("/login?success=Account has been created");
     } catch (err: any) {
-      console.log(err);
       setMessage(err);
     }
   };
@@ -50,8 +49,21 @@ const RegisterForm = () => {
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
       >
         <h2 className="text-lg font-bold mb-4 text-gray-800">Create Profile</h2>
+
+        <div className="flex w-full justify-center text-lg items-center">
+          <GoogleButton />
+        </div>
+
+        <div className="flex items-center justify-between my-4">
+          <hr className="w-full" />
+          <span className="mx-2 text-gray-500">OR</span>
+          <hr className="w-full" />
+        </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="name"
+          >
             Full Name
           </label>
           <input
@@ -59,11 +71,16 @@ const RegisterForm = () => {
             {...register("name", { required: "Full Name is required" })}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-          {errors.name && <p className="text-xs italic text-red-500">{errors.name.message}</p>}
+          {errors.name && (
+            <p className="text-xs italic text-red-500">{errors.name.message}</p>
+          )}
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="email"
+          >
             Email
           </label>
           <input
@@ -74,11 +91,18 @@ const RegisterForm = () => {
             })}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-          {errors.email && <p className="text-xs italic text-red-500">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="text-xs italic text-red-500">
+              {errors.email.message}
+            </p>
+          )}
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="password"
+          >
             Password
           </label>
           <input
@@ -88,7 +112,9 @@ const RegisterForm = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
           {errors.password && (
-            <p className="text-xs italic text-red-500">{errors.password.message}</p>
+            <p className="text-xs italic text-red-500">
+              {errors.password.message}
+            </p>
           )}
         </div>
 

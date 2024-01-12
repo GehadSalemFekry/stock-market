@@ -9,8 +9,8 @@ const Header = () => {
 
   return (
     // add position so that it doesn't make the page jump
-    <header className="bg-white absolute w-full top-0 left-0 right-0">
-      <nav className="flex justify-between items-center py-4 mx-auto max-w-5xl px-4">
+    <header className="bg-white">
+      <nav className="flex justify-between items-center py-4 mx-auto max-w-7xl px-4">
         <h1 className="text-xl font-medium text-gray-800">
           <Link href="/">Stock Market</Link>
         </h1>

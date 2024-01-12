@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
+import GoogleButton from "@/components/GoogleButton";
 
 type Inputs = {
   email: string;
@@ -35,8 +36,21 @@ const LoginForm = () => {
       >
         <h2 className="text-xl font-bold mb-4 text-gray-800">Log In</h2>
 
+        <div className="flex w-full justify-center text-lg items-center">
+          <GoogleButton />
+        </div>
+
+        <div className="flex items-center justify-between my-4">
+          <hr className="w-full" />
+          <span className="mx-2 text-gray-500">OR</span>
+          <hr className="w-full" />
+        </div>
+
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="email"
+          >
             Email
           </label>
           <input
@@ -47,11 +61,18 @@ const LoginForm = () => {
             })}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-          {errors.email && <p className="text-xs italic text-red-500">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="text-xs italic text-red-500">
+              {errors.email.message}
+            </p>
+          )}
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="password"
+          >
             Password
           </label>
           <input
@@ -61,7 +82,9 @@ const LoginForm = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           />
           {errors.password && (
-            <p className="text-xs italic text-red-500">{errors.password.message}</p>
+            <p className="text-xs italic text-red-500">
+              {errors.password.message}
+            </p>
           )}
         </div>
 
@@ -73,6 +96,7 @@ const LoginForm = () => {
           >
             Log In
           </button>
+
           <p className="inline-block align-baseline font-bold text-sm text-gray-600 hover:text-gray-800 pl-2">
             <Link href="/register">Need an account? Register</Link>
           </p>
