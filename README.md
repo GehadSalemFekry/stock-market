@@ -29,3 +29,4 @@ The application is deployed using Vercel on the following [link](https://vercel.
 Some of the tutorials used:
 
 [Authentication with Next-Auth](https://javascript.plainenglish.io/authentication-patterns-with-nextauth-and-mongodb-in-next-js-13-2c1fa98d6b5e).
+[C++ Server](https://tradermade.com/tutorials/how-to-build-your-first-cpp-rest-api-client)

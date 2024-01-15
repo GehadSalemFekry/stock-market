@@ -40,7 +40,6 @@ const StockDisplay: React.FC<StockDisplayProps> = ({ stocks }) => {
 
   const handleStockClick = (stock: Stock) => {
     setSelectedStock(stock);
-    // Optionally open a modal or navigate to the transaction page
   };
 
   return (
