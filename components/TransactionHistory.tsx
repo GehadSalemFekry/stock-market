@@ -1,50 +1,32 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
-
-interface Transaction {
-  id: string;
-  symbol: string;
-  quantity: number;
-  transactionType: "buy" | "sell";
-  price: number;
-  date: string; // TODO: ISO date string
-}
+import { Transaction } from "@/lib/types";
 
 interface TransactionHistoryProps {
-  userEmail: string; // TODO: assuming you identify 
+  userEmail: string; 
 }
 
 const TransactionHistory: React.FC<TransactionHistoryProps> = ({ userEmail }) => {
-  const [transactions, setTransactions] = useState<Transaction[]>([
-    // Add mock transaction data here
-    {
-      id: "1",
-      symbol: "AAPL",
-      quantity: 10,
-      transactionType: "buy",
-      price: 150.0,
-      date: "2021-01-01T12:00:00.000Z",
-    },
-    {
-      id: "2",
-      symbol: "MSFT",
-      quantity: 5,
-      transactionType: "sell",
-      price: 250.0,
-      date: "2021-02-01T12:00:00.000Z",
-    },
-  ]);
-  
-  useEffect(() => {
-    // TODO: Fetch the transaction history from the backend
-    const fetchTransactions = async () => {
-      const response = await fetch(`/api/transactions/${userEmail}`);
-      const data = await response.json();
-      setTransactions(data);
-    };
+  const [transactions, setTransactions] = useState<Transaction[]>([])
 
-    fetchTransactions();
+  const fetchTransactions = async () => {
+    try {
+      const response = await fetch(`/api/transactions?userEmail=${encodeURIComponent(userEmail)}`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setTransactions(data.transactions); 
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (userEmail) {
+      fetchTransactions();
+    }
   }, [userEmail]);
 
   return (
@@ -73,14 +55,16 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({ userEmail }) =>
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction) => (
-            <tr key={transaction.id} className="bg-white border-b">
+          {transactions.map((transaction, index) => (
+            <tr key={index} className="bg-white border-b">
               <td className="py-4 px-6">{new Date(transaction.date).toLocaleDateString()}</td>
               <td className="py-4 px-6">{transaction.symbol}</td>
-              <td className="py-4 px-6">{transaction.transactionType}</td>
+              <td className="py-4 px-6">{transaction.type}</td>
               <td className="py-4 px-6">{transaction.quantity}</td>
-              <td className="py-4 px-6">{transaction.price.toFixed(2)}</td>
-              <td className="py-4 px-6">{(transaction.quantity * transaction.price).toFixed(2)}</td>
+              <td className="py-4 px-6">{transaction.price?.toFixed(2)}</td>
+              <td className="py-4 px-6">
+                {(transaction.quantity * transaction.price)?.toFixed(2)}
+              </td>
             </tr>
           ))}
         </tbody>

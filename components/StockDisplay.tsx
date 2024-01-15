@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import StockTransaction from "./StockTransaction";
+import { Stock } from "@/lib/types";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -14,22 +15,7 @@ import {
   Legend,
 } from "chart.js";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-interface Stock {
-  symbol: string;
-  name: string;
-  price: number;
-  historicalData: number[];
-}
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 interface StockDisplayProps {
   stocks: Stock[];
@@ -37,16 +23,18 @@ interface StockDisplayProps {
 
 const StockDisplay: React.FC<StockDisplayProps> = ({ stocks }) => {
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
 
   const handleStockClick = (stock: Stock) => {
     setSelectedStock(stock);
+    setIsModalOpen(true);
   };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {stocks.map((stock) => {
         const data = {
-          labels: stock.historicalData.map((_, index) => `Day ${index + 1}`),
+          labels: stock.historicalData.map((_, index) => `${index * 10} sec`),
           datasets: [
             {
               label: "Price",
@@ -75,10 +63,11 @@ const StockDisplay: React.FC<StockDisplayProps> = ({ stocks }) => {
         );
       })}
 
-      {selectedStock && (
+      {isModalOpen && selectedStock && (
         <StockTransaction
           stock={selectedStock}
-          onTransactionComplete={() => setSelectedStock(null)}
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
         />
       )}
     </div>

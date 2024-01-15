@@ -1,4 +1,3 @@
-
 import { authOptions } from "@/lib/nextauthOptions";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -13,10 +12,9 @@ const Dashboard = async () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-semibold mb-4">Dashboard</h1>
-      <WalletDetails userEmail={session.user?.email} />
+      {session.user?.email && <WalletDetails userEmail={session.user.email} />}
     </div>
   );
 };
 
 export default Dashboard;
-

@@ -1,12 +1,18 @@
+import { authOptions } from "@/lib/nextauthOptions";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import WalletDetails from "@/components/WalletDetails";
 import TransactionHistory from "@/components/TransactionHistory";
 
-const TransactionHistoryPage = () => {
-  const userEmail = "user@example.com"; // Replace with dynamic user email
-
+const TransactionHistoryPage = async () => {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/login/?callbackUrl=/dashboard");
+  }
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-semibold mb-4">Your Transaction History</h1>
-      <TransactionHistory userEmail={userEmail} />
+      {session.user?.email && <TransactionHistory userEmail={session.user.email} />}
     </div>
   );
 };

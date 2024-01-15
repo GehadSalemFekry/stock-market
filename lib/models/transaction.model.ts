@@ -1,30 +1,29 @@
 import mongoose from "mongoose";
 
 const transactionSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
+  userEmail: {
+    type: String,
     ref: "User",
     required: true,
   },
-  stock: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Stock",
+  symbol: {
+    type: String,
     required: true,
   },
   quantity: {
     type: Number,
     required: true,
   },
-  priceAtTransaction: {
+  price: {
     type: Number,
     required: true,
   },
-  transactionType: {
+  type: {
     type: String,
     enum: ["buy", "sell"],
     required: true,
   },
-  transactionDate: {
+  date: {
     type: Date,
     default: Date.now,
   },

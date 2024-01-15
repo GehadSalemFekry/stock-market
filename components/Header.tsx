@@ -8,7 +8,6 @@ const Header = () => {
   const { data: session } = useSession();
 
   return (
-    // add position so that it doesn't make the page jump
     <header className="bg-white">
       <nav className="flex justify-between items-center py-4 mx-auto max-w-7xl px-4">
         <h1 className="text-xl font-medium text-gray-800">
@@ -17,6 +16,12 @@ const Header = () => {
         <div className="flex items-center">
           {session ? (
             <>
+              <p className="text-gray-700 text-sm mr-4">
+                <Link href="/transaction-history">Transactions</Link>
+              </p>
+              <p className="text-gray-700 text-sm mr-4">
+                <Link href="/dashboard">Wallet</Link>
+              </p>
               <p className="text-gray-700 text-sm mr-4">Signed in as {session.user?.email}</p>
               <button
                 onClick={() => signOut()}

@@ -1,28 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Running the Application
 
-## Getting Started
+To run the React/Nextjs application:
 
-First, install the required node dependencies
+1. **Install Dependencies**:
+   Navigate to the root directory of the React project and install the necessary dependencies.
+   ```bash
+   npm install
+   ```
 
-```bash
-npm install
-```
+2. **Start the Development Server**:
+   Start the React development server.
+   ```bash
+   npm run dev
+   ```
 
-Then, run the development server:
+   The React application will be available at `http://localhost:3000` by default.
 
-```bash
-npm run dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Main Components
-
-The app uses `Next-Auth` to handle authentication
-
-## Deployment
-
-The application is deployed using Vercel on the following [link](https://vercel.com).
+Ensure that all necessary environmental variables and dependencies are properly set up before running these applications. Additionally, check that the required ports are available and not blocked by any firewall or other network configurations.
 
 ## References
 
@@ -30,3 +26,4 @@ Some of the tutorials used:
 
 [Authentication with Next-Auth](https://javascript.plainenglish.io/authentication-patterns-with-nextauth-and-mongodb-in-next-js-13-2c1fa98d6b5e).
 [C++ Server](https://tradermade.com/tutorials/how-to-build-your-first-cpp-rest-api-client)
+[App Context Provider](https://javascript.plainenglish.io/how-to-combine-context-providers-for-cleaner-react-code-9ed24f20225e)

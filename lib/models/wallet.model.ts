@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
 const walletSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
+  userEmail: {
+    type: String,
     ref: "User",
     required: true,
   },
@@ -12,11 +12,9 @@ const walletSchema = new mongoose.Schema({
   },
   holdings: [
     {
-      stock: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Stock",
-      },
+      symbol: String,
       quantity: Number,
+      price: Number,
     },
   ],
 });
